@@ -146,12 +146,12 @@ export default function Home() {
               <div className="text-center space-y-6">
                 <div>
                   <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                    Buy & Lease Scooters
+                    Lease Premium Scooters
                     <br />
-                    <span className="font-sports text-sky-600">from Cornell Students</span>
+                    <span className="font-sports text-sky-600">for Cornell Campus</span>
                   </h1>
                   <p className="text-xl text-gray-600 max-w-md mx-auto">
-                    The marketplace connecting Cornell students for scooter sales and leases
+                    Professional scooter leasing service designed for Cornell students
                   </p>
                 </div>
 
@@ -199,32 +199,32 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Tailgate Scooters?</h2>
-            <p className="text-xl text-gray-600">Built by students, for students</p>
+            <p className="text-xl text-gray-600">Professional scooter leasing for Cornell students</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-8 h-8 text-red-600" />
+              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8 text-sky-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Campus Focused</h3>
-              <p className="text-gray-600">Designed specifically for Cornell University and campus life</p>
+              <h3 className="text-xl font-semibold mb-2">Campus Delivery</h3>
+              <p className="text-gray-600">Free delivery and pickup right to your dorm at Cornell</p>
             </div>
             
             <div className="text-center p-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-blue-600" />
+              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-sky-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Safe & Secure</h3>
-              <p className="text-gray-600">All rentals are insured and users are verified</p>
+              <h3 className="text-xl font-semibold mb-2">Fully Maintained</h3>
+              <p className="text-gray-600">Professional maintenance and support included in your lease</p>
             </div>
             
             <div className="text-center p-6">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-sky-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Flexible Rentals</h3>
-              <p className="text-gray-600">Rent by the hour, day, or semester - whatever works for you</p>
+              <h3 className="text-xl font-semibold mb-2">Semester Leases</h3>
+              <p className="text-gray-600">Flexible semester-long leases perfect for campus life</p>
             </div>
           </div>
         </div>
@@ -267,13 +267,13 @@ export default function Home() {
                     <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     </div>
-                    <span>Campus pickup available</span>
+                    <span>Free dorm delivery</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     </div>
-                    <span>Basic maintenance included</span>
+                    <span>Maintenance included</span>
                   </li>
                 </ul>
                 
@@ -318,13 +318,13 @@ export default function Home() {
                     <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     </div>
-                    <span>Priority campus pickup</span>
+                    <span>Priority dorm delivery</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     </div>
-                    <span>Premium maintenance & support</span>
+                    <span>Premium maintenance & 24/7 support</span>
                   </li>
                 </ul>
                 
@@ -350,9 +350,9 @@ export default function Home() {
                 Sign Up Now
               </Button>
             </Link>
-            <Link href="/scooters">
+            <Link href="/checkout/basic">
               <Button variant="outline" className="border-2 border-sky-600 text-sky-600 hover:bg-sky-50 px-8 py-3 rounded-full text-lg font-medium">
-                Browse Scooters
+                View Lease Plans
               </Button>
             </Link>
           </div>
