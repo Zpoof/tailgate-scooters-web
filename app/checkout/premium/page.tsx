@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { ArrowLeft, Calendar, MapPin, Phone, Shield, Battery, Gauge, Star } from 'lucide-react'
 import { format, addDays } from 'date-fns'
 import { formatCurrency, addCurrency } from '@/lib/utils'
+import Navigation from '@/components/Navigation'
 
 export default function PremiumCheckoutPage() {
   const { user, loading } = useAuth()
@@ -31,6 +32,9 @@ export default function PremiumCheckoutPage() {
     includeInsurance: true, // Default to true for premium
     includeLock: true,
   })
+  
+  const [agreedToLease, setAgreedToLease] = useState(false)
+  const [showLeaseAgreement, setShowLeaseAgreement] = useState(false)
 
   if (loading) {
     return (
@@ -84,24 +88,21 @@ export default function PremiumCheckoutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Floating Navigation */}
-      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="bg-white/90 backdrop-blur-md border border-gray-200 rounded-full px-8 py-4 shadow-lg min-w-[500px]">
-          <div className="flex items-center justify-between">
-            <Link href="/scooters">
-              <Button variant="ghost" size="sm" className="rounded-full">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
-              </Button>
-            </Link>
-            <h1 className="text-lg font-semibold text-sky-600">Premium Plan Checkout</h1>
-            <div></div> {/* Spacer for balance */}
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-32">
+        {/* Page Header */}
+        <div className="mb-8">
+          <Link href="/scooters">
+            <Button variant="ghost" className="mb-4">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Plans
+            </Button>
+          </Link>
+          <h1 className="text-3xl font-bold text-gray-900">Premium Plan Checkout</h1>
+          <p className="text-gray-600 mt-2">Complete your premium scooter lease setup</p>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Form */}
           <div className="lg:col-span-2">
@@ -148,30 +149,49 @@ export default function PremiumCheckoutPage() {
               </Card>
 
               {/* Lock Option */}
-              <Card className="mb-6">
+              <Card 
+                className={`mb-6 border-2 cursor-pointer transition-all ${
+                  formData.includeLock 
+                    ? 'border-green-500 bg-green-50 shadow-lg ring-2 ring-green-200' 
+                    : 'border-green-200 bg-green-25 hover:border-green-400 hover:shadow-md'
+                }`}
+                onClick={() => setFormData({ ...formData, includeLock: !formData.includeLock })}
+              >
                 <CardHeader>
-                  <CardTitle>🔒 Security Lock</CardTitle>
-                  <CardDescription>Protect your scooter from theft</CardDescription>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-green-800 flex items-center text-lg">
+                        🔒 Security Lock
+                        {formData.includeLock && <span className="ml-2 text-green-600 text-xl">✓</span>}
+                      </CardTitle>
+                      <CardDescription className="text-green-700 font-medium">
+                        Protect your scooter from theft
+                      </CardDescription>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xl font-bold text-green-600">$20</div>
+                      <div className="text-sm text-green-600">one-time</div>
+                      <Button 
+                        type="button"
+                        variant={formData.includeLock ? "default" : "outline"}
+                        size="sm"
+                        className={`mt-1 ${formData.includeLock ? "bg-green-600 hover:bg-green-700" : "border-green-500 text-green-600 hover:bg-green-50"}`}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setFormData({ ...formData, includeLock: !formData.includeLock })
+                        }}
+                      >
+                        {formData.includeLock ? "Added ✓" : "Add Lock"}
+                      </Button>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-start space-x-3">
-                    <Checkbox
-                      id="lock"
-                      checked={formData.includeLock}
-                      onCheckedChange={(checked) => 
-                        setFormData({ ...formData, includeLock: checked as boolean })
-                      }
-                    />
-                    <div className="flex-1">
-                      <Label htmlFor="lock" className="cursor-pointer">
-                        <span className="font-medium">
-                          Add High-Quality Lock - $20 one-time
-                        </span>
-                        <span className="text-sm text-gray-600 block mt-1">
-                          Heavy-duty cable lock to secure your scooter. Highly recommended for theft prevention.
-                        </span>
-                      </Label>
-                    </div>
+                  <div className="text-sm text-green-700 space-y-1">
+                    <p className="flex items-center"><span className="text-green-600 mr-2">✓</span>Heavy-duty cable lock</p>
+                    <p className="flex items-center"><span className="text-green-600 mr-2">✓</span>Professional theft prevention</p>
+                    <p className="flex items-center"><span className="text-green-600 mr-2">✓</span>Peace of mind security</p>
+                    <p className="text-xs text-gray-600 mt-2 font-medium">💡 Note: You're responsible for theft/loss ($400 replacement fee)</p>
                   </div>
                 </CardContent>
               </Card>
@@ -315,11 +335,59 @@ export default function PremiumCheckoutPage() {
               </Card>
 
 
+              {/* Lease Agreement */}
+              <Card className="mb-6 border-blue-200 bg-blue-50">
+                <CardHeader>
+                  <CardTitle className="text-blue-800 flex items-center">
+                    📄 Lease Agreement Required
+                  </CardTitle>
+                  <CardDescription className="text-blue-700">
+                    You must read and agree to the lease terms before proceeding
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="bg-white p-4 rounded-lg border text-sm">
+                      <h4 className="font-semibold mb-2">Key Terms Summary:</h4>
+                      <ul className="space-y-1 text-gray-700">
+                        <li>• <strong>Lease Term:</strong> Full semester (~4 months)</li>
+                        <li>• <strong>No Early Cancellation:</strong> Full payment due even if returned early</li>
+                        <li>• <strong>Loss/Theft:</strong> $400 replacement charge</li>
+                        <li>• <strong>Damage:</strong> Repair costs up to $400</li>
+                        <li>• <strong>Liability:</strong> You ride at your own risk</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowLeaseAgreement(true)}
+                        className="text-blue-600 border-blue-300 hover:bg-blue-50"
+                      >
+                        📖 Read Full Lease Agreement
+                      </Button>
+                      
+                      <div className="flex items-center space-x-3">
+                        <Checkbox
+                          id="lease-agreement"
+                          checked={agreedToLease}
+                          onCheckedChange={(checked) => setAgreedToLease(checked as boolean)}
+                        />
+                        <Label htmlFor="lease-agreement" className="cursor-pointer font-medium">
+                          I have read and agree to the lease agreement
+                        </Label>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               <Button 
                 type="submit" 
                 size="lg" 
                 className="w-full"
-                disabled={processing}
+                disabled={processing || !agreedToLease}
               >
                 {processing ? 'Processing...' : 'Continue to Payment'}
               </Button>
@@ -415,6 +483,101 @@ export default function PremiumCheckoutPage() {
           </div>
         </div>
       </main>
+
+      {/* Lease Agreement Modal */}
+      {showLeaseAgreement && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="p-6 border-b">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">Scooter Lease Agreement</h2>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setShowLeaseAgreement(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  ✕
+                </Button>
+              </div>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[70vh]">
+              <div className="prose prose-sm max-w-none">
+                <div className="whitespace-pre-line text-sm leading-relaxed">
+{`SCOOTER LEASE AGREEMENT
+Semester Scooter Lease
+
+This Scooter Lease Agreement ("Agreement") is made between Tailgate Scooters, Inc. ("Lessor") and the undersigned student ("Lessee").
+
+1. LEASE TERM
+
+• Lease begins on the date the scooter is delivered and runs for approximately 4 months (one semester).
+• The lease CANNOT be canceled early. Full semester payment is due even if returned early.
+• If starting mid-semester, charges are prorated by month.
+
+2. PAYMENT
+
+• Monthly lease fee: $37.50/month (Basic Plan) or $52.50/month (Premium Plan).
+• Payments auto-billed to the payment method on file.
+• Lessor may pre-authorize Lessee's payment method for up to $400.
+
+3. LOSS, THEFT, & DAMAGE
+
+• Lessee is responsible for the scooter's condition.
+• Loss or Theft: $400 charge.
+• Damage: Actual repair cost up to $400.
+• Optional Damage Insurance ($9.99/month) covers repairs but not loss/theft.
+• Insurance must be purchased at the start of lease and billed monthly.
+
+4. USE & SAFETY
+
+• Lessee agrees to use scooter safely, follow traffic laws, and wear a helmet.
+• Scooter may not be used for commercial purposes, racing, or illegal activity.
+
+5. WAIVER & LIABILITY
+
+• Lessee rides at their own risk.
+• Lessor is NOT liable for any injury, death, or property damage caused by use of the scooter.
+
+6. RETURN OF SCOOTER
+
+• Lessee must return the scooter in reasonable condition by the end of the semester.
+• Failure to return may result in a $400 charge.
+
+7. GOVERNING LAW
+
+• This Agreement shall be governed by the laws of the State of Delaware.
+
+By using this service, you acknowledge that you have read, understood, and agree to be bound by this Agreement.
+
+Tailgate Scooters, Inc.
+8 The Green, STE A, Dover, DE 19901, USA
+Email: support@tailgate.now`}
+                </div>
+              </div>
+            </div>
+            <div className="p-6 border-t bg-gray-50">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <Checkbox
+                    id="modal-lease-agreement"
+                    checked={agreedToLease}
+                    onCheckedChange={(checked) => setAgreedToLease(checked as boolean)}
+                  />
+                  <Label htmlFor="modal-lease-agreement" className="cursor-pointer font-medium">
+                    I have read and agree to this lease agreement
+                  </Label>
+                </div>
+                <Button 
+                  onClick={() => setShowLeaseAgreement(false)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,12 +1,12 @@
-// Stripe Price IDs for live mode
+// Stripe Price IDs for LIVE mode - PRODUCTION READY! ✅
 export const STRIPE_PRICES = {
-  // Basic Plan - $37.50/month (Segway Ninebot E22)
+  // Basic Plan - $37.50/month recurring (Segway Ninebot E22)
   BASIC_PLAN: 'price_1SCoiJRttOliHIQePYSxTyao',
   
-  // Premium Plan - $52.50/month (Segway Ninebot ES2)  
+  // Premium Plan - $52.50/month recurring (Segway Ninebot ES2)
   PREMIUM_PLAN: 'price_1SCohIRttOliHIQecJ6g2VHo',
   
-  // Insurance - $9.99/month (damage protection)
+  // Insurance - $9.99/month recurring (damage protection)
   INSURANCE: 'price_1SCokzRttOliHIQe23ac2q7l',
   
   // Security Lock - $20 one-time (theft prevention)

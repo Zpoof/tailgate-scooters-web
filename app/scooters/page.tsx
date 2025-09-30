@@ -81,19 +81,13 @@ export default function ScootersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <Navigation />
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
-        {/* Header */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Choose Your Plan</h2>
-          <p className="text-gray-600 mt-2">Select between our Basic and Premium scooter plans</p>
-        </div>
-
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {/* Plan Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto pt-4">
           {/* Basic Plan */}
           <Card className="overflow-hidden hover:shadow-lg transition-shadow">
             <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -150,12 +144,13 @@ export default function ScootersPage() {
           </Card>
 
           {/* Premium Plan */}
-          <Card className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-sky-500 relative">
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-sky-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+          <div className="relative transform scale-105">
+            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-50">
+              <span className="bg-sky-500 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
                 Most Popular
               </span>
             </div>
+            <Card className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-sky-500 shadow-xl">
             <div className="h-48 bg-gradient-to-br from-sky-100 to-sky-200 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-6xl mb-2">🛴</div>
@@ -209,6 +204,19 @@ export default function ScootersPage() {
               </Link>
             </CardFooter>
           </Card>
+          </div>
+        </div>
+
+        {/* Back Button - Centered below pricing tiers */}
+        <div className="flex justify-center mt-8">
+          <Button 
+            variant="ghost" 
+            onClick={() => router.back()}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </Button>
         </div>
       </main>
     </div>

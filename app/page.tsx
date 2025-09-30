@@ -8,6 +8,8 @@ import Link from 'next/link'
 import { Download, ArrowRight, Star, MapPin, Shield, Clock } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import { InstallPrompt } from '@/components/InstallPrompt'
+import { PWADownloadButton } from '@/components/PWADownloadButton'
 
 export default function Home() {
   const { user, loading } = useAuth()
@@ -73,14 +75,8 @@ export default function Home() {
                       <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
-                  {/* Official App Store Button */}
-                  <a href="https://apps.apple.com/app/tailgate-scooters" target="_blank" rel="noopener noreferrer">
-                    <img 
-                      src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
-                      alt="Download on the App Store" 
-                      className="h-12 w-auto"
-                    />
-                  </a>
+                  {/* PWA Install Button */}
+                  <PWADownloadButton variant="app-store" className="h-12" />
                 </div>
 
                 {/* Trust Indicators */}
@@ -225,6 +221,9 @@ export default function Home() {
           </p>
         </div>
       </footer>
+      
+      {/* PWA Install Prompt */}
+      <InstallPrompt />
     </div>
   )
 }
