@@ -48,8 +48,8 @@ body {
   border-color: #B31B1B;
 }
 
-.cornell-gradient {
-  background: linear-gradient(135deg, #B31B1B 0%, #8B0000 100%);
+.cornell-solid {
+  background-color: #B31B1B;
 }
 
 .hover-cornell {
