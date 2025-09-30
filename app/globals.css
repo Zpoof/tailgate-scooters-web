@@ -19,38 +19,43 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* Cornell Colors */
-.text-cornell-red {
-  color: #B31B1B;
+/* Tailgate Scooters Colors */
+.text-tailgate-blue {
+  color: #87CEEB;
 }
 
-.bg-cornell-red {
-  background-color: #B31B1B;
+.bg-tailgate-blue {
+  background-color: #87CEEB;
 }
 
-.bg-cornell-darkred {
-  background-color: #8B0000;
+.bg-tailgate-dark-blue {
+  background-color: #4682B4;
 }
 
-.bg-cornell-lightred {
-  background-color: #D33636;
+.bg-tailgate-light-blue {
+  background-color: #B0E0E6;
 }
 
-.bg-cornell-lightgray {
+.bg-tailgate-lightgray {
   background-color: #F7F7F7;
 }
 
-.bg-cornell-gray {
+.bg-tailgate-gray {
   background-color: #222222;
 }
 
-.border-cornell-red {
-  border-color: #B31B1B;
+.border-tailgate-blue {
+  border-color: #87CEEB;
 }
 
-.cornell-solid {
-  background-color: #B31B1B;
+.tailgate-solid {
+  background-color: #87CEEB;
 }
+
+/* Legacy Cornell compatibility */
+.text-cornell-red { color: #87CEEB; }
+.bg-cornell-red { background-color: #87CEEB; }
+.border-cornell-red { border-color: #87CEEB; }
 
 .hover-cornell {
   transition: background-color 0.2s ease;
