@@ -1,5 +1,10 @@
 /* Import Sports Night NS Font */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@font-face {
+  font-family: 'SFSportsNightNS';
+  src: url('/fonts/SFSportsNightNS.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
@@ -12,10 +17,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Sports Night NS Alternative - Using Orbitron for similar tech/sports feel */
+/* Sports Night NS Font */
 .font-sports {
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
+  font-family: 'SFSportsNightNS', monospace;
+  font-weight: normal;
   letter-spacing: 0.05em;
 }
 

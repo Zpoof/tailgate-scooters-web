@@ -39,18 +39,7 @@ export default function Home() {
             </h1>
           </div>
           
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-6 mx-8">
-            <Link href="#features" className="text-gray-600 hover:text-gray-900 font-medium transition-colors text-sm">
-              Features
-            </Link>
-            <Link href="#pricing" className="text-gray-600 hover:text-gray-900 font-medium transition-colors text-sm">
-              Pricing
-            </Link>
-            <Link href="#about" className="text-gray-600 hover:text-gray-900 font-medium transition-colors text-sm">
-              About
-            </Link>
-          </div>
+          {/* Navigation Links - Removed as requested */}
 
           {/* Auth Buttons */}
           <div className="flex items-center space-x-3">
@@ -80,7 +69,7 @@ export default function Home() {
                   src="/scooter.jpg" 
                   alt="Tailgate Scooter" 
                   fill
-                  className="object-cover rounded-2xl shadow-2xl"
+                  className="object-cover shadow-2xl"
                   priority
                 />
               </div>
@@ -194,41 +183,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Tailgate Scooters?</h2>
-            <p className="text-xl text-gray-600">Professional scooter leasing for Cornell students</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-8 h-8 text-sky-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Campus Delivery</h3>
-              <p className="text-gray-600">Free delivery and pickup right to your dorm at Cornell</p>
-            </div>
-            
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-sky-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Fully Maintained</h3>
-              <p className="text-gray-600">Professional maintenance and support included in your lease</p>
-            </div>
-            
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-sky-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Semester Leases</h3>
-              <p className="text-gray-600">Flexible semester-long leases perfect for campus life</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-white">
@@ -245,10 +199,10 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic Plan</h3>
                 <p className="text-gray-600 mb-6">Segway Ninebot E22</p>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-sky-600">$37.50</span>
-                  <span className="text-gray-600">/month</span>
+                  <span className="text-4xl font-bold text-sky-600">$1.25</span>
+                  <span className="text-gray-600">/day</span>
                 </div>
-                <p className="text-sm text-gray-500 mb-8">Just $1.25/day</p>
+                <p className="text-sm text-gray-500 mb-8">$37.50/month</p>
                 
                 <ul className="text-left space-y-3 mb-8">
                   <li className="flex items-center">
@@ -296,10 +250,10 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Premium Plan</h3>
                 <p className="text-gray-600 mb-6">Segway Ninebot ES2</p>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-sky-600">$52.50</span>
-                  <span className="text-gray-600">/month</span>
+                  <span className="text-4xl font-bold text-sky-600">$1.75</span>
+                  <span className="text-gray-600">/day</span>
                 </div>
-                <p className="text-sm text-gray-500 mb-8">Just $1.75/day</p>
+                <p className="text-sm text-gray-500 mb-8">$52.50/month</p>
                 
                 <ul className="text-left space-y-3 mb-8">
                   <li className="flex items-center">
@@ -339,25 +293,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-white">
+      {/* Made with Heart Footer */}
+      <footer className="py-12 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Start Riding?</h2>
-          <p className="text-xl text-gray-600 mb-8">Join hundreds of Cornell students already using Tailgate Scooters</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/auth/signup">
-              <Button className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-full text-lg font-medium">
-                Sign Up Now
-              </Button>
-            </Link>
-            <Link href="/checkout/basic">
-              <Button variant="outline" className="border-2 border-sky-600 text-sky-600 hover:bg-sky-50 px-8 py-3 rounded-full text-lg font-medium">
-                View Lease Plans
-              </Button>
-            </Link>
-          </div>
+          <p className="text-gray-600 text-lg">
+            Made with ❤️ for Cornell students
+          </p>
+          <p className="text-gray-500 text-sm mt-2">
+            © 2024 Tailgate Scooters. All rights reserved.
+          </p>
         </div>
-      </section>
+      </footer>
     </div>
   )
 }
