@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Sports Night NS Font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* Simple, clean CSS without complex variables */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sports Night NS Alternative - Using Orbitron for similar tech/sports feel */
+.font-sports {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Cornell Colors */
+.text-cornell-red {
+  color: #B31B1B;
+}
+
+.bg-cornell-red {
+  background-color: #B31B1B;
+}
+
+.bg-cornell-darkred {
+  background-color: #8B0000;
+}
+
+.bg-cornell-lightred {
+  background-color: #D33636;
+}
+
+.bg-cornell-lightgray {
+  background-color: #F7F7F7;
+}
+
+.bg-cornell-gray {
+  background-color: #222222;
+}
+
+.border-cornell-red {
+  border-color: #B31B1B;
+}
+
+.cornell-gradient {
+  background: linear-gradient(135deg, #B31B1B 0%, #8B0000 100%);
+}
+
+.hover-cornell {
+  transition: background-color 0.2s ease;
+}
+
+.hover-cornell:hover {
+  background-color: #8B0000;
+}
