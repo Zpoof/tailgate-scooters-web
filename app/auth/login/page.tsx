@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Label } from '@/components/ui/label'
 import { Mail, Lock } from 'lucide-react'
+import Navigation from '@/components/Navigation'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -51,7 +52,9 @@ export default function LoginPage() {
 
   if (showMagicLink) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 p-4">
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 p-4 pt-24">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="text-4xl mb-4">📧</div>
@@ -70,12 +73,15 @@ export default function LoginPage() {
             </Button>
           </CardFooter>
         </Card>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 p-4">
+    <div className="min-h-screen bg-white">
+      <Navigation />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 p-4 pt-24">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
@@ -150,6 +156,7 @@ export default function LoginPage() {
           </p>
         </CardFooter>
       </Card>
+      </div>
     </div>
   )
 }

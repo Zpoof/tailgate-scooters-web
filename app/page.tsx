@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Download, ArrowRight, Star, MapPin, Shield, Clock } from 'lucide-react'
 import Image from 'next/image'
+import Navigation from '@/components/Navigation'
 
 export default function Home() {
   const { user, loading } = useAuth()
@@ -28,34 +29,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Floating Top Navigation Bar */}
-      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/90 backdrop-blur-lg border border-gray-200 rounded-full shadow-lg px-6 py-3">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <Image src="/app-icon-1024.png" alt="Tailgate Scooters" width={32} height={32} className="rounded-lg" />
-            <h1 className="font-sports text-lg font-bold text-gray-900">
-              TAILGATE SCOOTERS
-            </h1>
-          </div>
-          
-          {/* Navigation Links - Removed as requested */}
-
-          {/* Auth Buttons */}
-          <div className="flex items-center space-x-3">
-            <Link href="/auth/login">
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900 text-sm px-4 py-2">
-                Sign In
-              </Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button className="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 text-sm rounded-full">
-                Get Started
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Main Hero Section - Single Row Layout */}
       <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
@@ -69,7 +43,7 @@ export default function Home() {
                   src="/scooter.jpg" 
                   alt="Tailgate Scooter" 
                   fill
-                  className="object-cover shadow-2xl"
+                  className="object-cover"
                   priority
                 />
               </div>
@@ -77,59 +51,6 @@ export default function Home() {
 
             {/* Right Side - Phone Mockup and Content */}
             <div className="relative">
-              {/* Phone Mockup */}
-              <div className="relative w-80 h-[600px] mx-auto mb-8">
-                <div className="absolute inset-0 bg-black rounded-[3rem] shadow-2xl">
-                  <div className="absolute inset-2 bg-white rounded-[2.5rem] overflow-hidden">
-                    {/* Phone Screen Content */}
-                    <div className="h-full bg-white flex flex-col">
-                      {/* Status Bar */}
-                      <div className="h-12 bg-gray-50 flex items-center justify-between px-6 text-xs font-medium">
-                        <span>9:41</span>
-                        <div className="flex space-x-1">
-                          <div className="w-4 h-2 bg-black rounded-sm"></div>
-                          <div className="w-4 h-2 bg-black rounded-sm"></div>
-                          <div className="w-4 h-2 bg-black rounded-sm"></div>
-                        </div>
-                      </div>
-                      
-                      {/* App Header */}
-                      <div className="px-6 py-4 border-b">
-                        <div className="flex items-center space-x-3">
-                          <Image src="/app-icon-1024.png" alt="App Icon" width={40} height={40} className="rounded-lg" />
-                          <div>
-                            <h3 className="font-bold text-lg">Tailgate Scooters</h3>
-                            <p className="text-gray-500 text-sm">Find your ride</p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Map Area */}
-                      <div className="flex-1 bg-gray-100 relative">
-                        <div className="absolute inset-4 bg-green-100 rounded-lg flex items-center justify-center">
-                          <div className="text-center">
-                            <MapPin className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                            <p className="text-sm font-medium text-green-800">Available Scooters</p>
-                            <p className="text-xs text-green-600">Near Cornell University</p>
-                          </div>
-                        </div>
-                        
-                        {/* Scooter Pins */}
-                        <div className="absolute top-8 left-8 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                        <div className="absolute top-16 right-12 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                        <div className="absolute bottom-20 left-12 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                      </div>
-                      
-                      {/* Bottom Action */}
-                      <div className="p-6">
-                        <button className="w-full bg-black text-white py-4 rounded-xl font-medium">
-                          Find Nearest Scooter
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               {/* Content Below Phone */}
               <div className="text-center space-y-6">

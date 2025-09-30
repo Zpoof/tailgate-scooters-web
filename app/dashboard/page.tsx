@@ -10,6 +10,7 @@ import { Bike, Package, User, LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Subscription } from '@/types'
 import { formatCurrency } from '@/lib/utils'
+import Navigation from '@/components/Navigation'
 
 export default function DashboardPage() {
   const { user, loading, signOut } = useAuth()
@@ -63,26 +64,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Floating Navigation */}
-      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="bg-white/90 backdrop-blur-md border border-gray-200 rounded-full px-8 py-4 shadow-lg min-w-[500px]">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-sky-600">Tailgate Scooters</h1>
-            <div className="flex items-center space-x-3">
-              <Link href="/profile">
-                <Button variant="ghost" size="sm" className="rounded-full">
-                  <User className="w-4 h-4 mr-2" />
-                  Profile
-                </Button>
-              </Link>
-              <Button variant="ghost" size="sm" onClick={signOut} className="rounded-full">
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">

@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import Link from 'next/link'
 import { ArrowLeft, User, Mail, Phone, Shield } from 'lucide-react'
+import Navigation from '@/components/Navigation'
 
 interface UserProfile {
   id: string
@@ -135,21 +136,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Floating Navigation */}
-      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="bg-white/90 backdrop-blur-md border border-gray-200 rounded-full px-8 py-4 shadow-lg min-w-[500px]">
-          <div className="flex items-center justify-between">
-            <Link href="/dashboard">
-              <Button variant="ghost" size="sm" className="rounded-full">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
-              </Button>
-            </Link>
-            <h1 className="text-lg font-semibold text-sky-600">My Profile</h1>
-            <div></div> {/* Spacer for balance */}
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Main Content */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
