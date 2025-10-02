@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       deliveryDate,
       deliveryTime,
       includeInsurance,
-      includeLock,
+      lockType, // 'none', 'cable', 'ulock'
     } = body
 
     // Define plan details with Stripe price IDs
@@ -89,9 +89,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Add lock if selected
-    if (includeLock) {
+    if (lockType === 'cable') {
       lineItems.push({
         price: STRIPE_PRICES.LOCK,
+        quantity: 1,
+      })
+    } else if (lockType === 'ulock') {
+      lineItems.push({
+        price: STRIPE_PRICES.U_LOCK,
         quantity: 1,
       })
     }
@@ -113,7 +118,7 @@ export async function POST(request: NextRequest) {
         delivery_date: deliveryDate,
         delivery_time: deliveryTime,
         include_insurance: includeInsurance.toString(),
-        include_lock: includeLock.toString(),
+        lock_type: lockType,
       },
     })
 

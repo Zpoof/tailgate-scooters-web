@@ -30,7 +30,7 @@ export default function PremiumCheckoutPage() {
     deliveryDate: format(addDays(new Date(), 3), 'yyyy-MM-dd'),
     deliveryTime: 'morning',
     includeInsurance: true, // Default to true for premium
-    includeLock: true,
+    lockType: 'ulock', // Default to U-lock for premium
   })
   
   const [agreedToLease, setAgreedToLease] = useState(false)
@@ -52,7 +52,7 @@ export default function PremiumCheckoutPage() {
   const dailyPrice = 1.75
   const monthlyPrice = 52.50
   const insurancePrice = formData.includeInsurance ? 9.99 : 0
-  const lockPrice = formData.includeLock ? 20 : 0
+  const lockPrice = formData.lockType === 'cable' ? 20 : formData.lockType === 'ulock' ? 30 : 0
   const totalMonthly = addCurrency(monthlyPrice, insurancePrice)
   const totalUpfront = addCurrency(totalMonthly, lockPrice)
 
@@ -70,7 +70,7 @@ export default function PremiumCheckoutPage() {
         body: JSON.stringify({
           planType: 'premium',
           ...formData,
-          includeLock: formData.includeLock,
+          lockType: formData.lockType,
         }),
       })
 
@@ -148,50 +148,88 @@ export default function PremiumCheckoutPage() {
                 </CardContent>
               </Card>
 
-              {/* Lock Option */}
-              <Card 
-                className={`mb-6 border-2 cursor-pointer transition-all ${
-                  formData.includeLock 
-                    ? 'border-green-500 bg-green-50 shadow-lg ring-2 ring-green-200' 
-                    : 'border-green-200 bg-green-25 hover:border-green-400 hover:shadow-md'
-                }`}
-                onClick={() => setFormData({ ...formData, includeLock: !formData.includeLock })}
-              >
+              {/* Security Lock Options */}
+              <Card className="mb-6">
                 <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-green-800 flex items-center text-lg">
-                        🔒 Security Lock
-                        {formData.includeLock && <span className="ml-2 text-green-600 text-xl">✓</span>}
-                      </CardTitle>
-                      <CardDescription className="text-green-700 font-medium">
-                        Protect your scooter from theft
-                      </CardDescription>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold text-green-600">$20</div>
-                      <div className="text-sm text-green-600">one-time</div>
-                      <Button 
-                        type="button"
-                        variant={formData.includeLock ? "default" : "outline"}
-                        size="sm"
-                        className={`mt-1 ${formData.includeLock ? "bg-green-600 hover:bg-green-700" : "border-green-500 text-green-600 hover:bg-green-50"}`}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormData({ ...formData, includeLock: !formData.includeLock })
-                        }}
-                      >
-                        {formData.includeLock ? "Added ✓" : "Add Lock"}
-                      </Button>
-                    </div>
-                  </div>
+                  <CardTitle className="text-green-800 flex items-center text-lg">
+                    🔒 Security Lock Options
+                  </CardTitle>
+                  <CardDescription className="text-green-700 font-medium">
+                    Choose your preferred theft protection level
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm text-green-700 space-y-1">
-                    <p className="flex items-center"><span className="text-green-600 mr-2">✓</span>Heavy-duty cable lock</p>
-                    <p className="flex items-center"><span className="text-green-600 mr-2">✓</span>Professional theft prevention</p>
-                    <p className="flex items-center"><span className="text-green-600 mr-2">✓</span>Peace of mind security</p>
-                    <p className="text-xs text-gray-600 mt-2 font-medium">💡 Note: You're responsible for theft/loss ($400 replacement fee)</p>
+                  <RadioGroup
+                    value={formData.lockType}
+                    onValueChange={(value) => setFormData({ ...formData, lockType: value })}
+                  >
+                    <div className="space-y-3">
+                      {/* No Lock Option */}
+                      <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50">
+                        <RadioGroupItem value="none" id="no-lock" />
+                        <Label htmlFor="no-lock" className="flex-1 cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <span className="font-medium">No Lock</span>
+                              <span className="text-sm text-gray-500 block">I'll provide my own security</span>
+                            </div>
+                            <span className="text-lg font-bold text-gray-600">$0</span>
+                          </div>
+                        </Label>
+                      </div>
+
+                      {/* Cable Lock Option */}
+                      <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-green-50 border-green-200">
+                        <RadioGroupItem value="cable" id="cable-lock" />
+                        <Label htmlFor="cable-lock" className="flex-1 cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <span className="font-medium text-green-800">Cable Lock</span>
+                              <span className="text-sm text-green-600 block">Heavy-duty cable lock - good protection</span>
+                              <div className="text-xs text-green-700 mt-1 space-y-0.5">
+                                <p>• Flexible and lightweight</p>
+                                <p>• Quick and easy to use</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-lg font-bold text-green-600">$20</span>
+                              <span className="text-xs text-green-600 block">one-time</span>
+                            </div>
+                          </div>
+                        </Label>
+                      </div>
+
+                      {/* U-Lock Option */}
+                      <div className="flex items-center space-x-3 p-3 border-2 rounded-lg hover:bg-blue-50 border-blue-300 bg-blue-25">
+                        <RadioGroupItem value="ulock" id="u-lock" />
+                        <Label htmlFor="u-lock" className="flex-1 cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="flex items-center">
+                                <span className="font-medium text-blue-800">U-Lock Security</span>
+                                <span className="ml-2 text-xs px-2 py-1 rounded bg-blue-500 text-white font-medium">PREMIUM CHOICE</span>
+                              </div>
+                              <span className="text-sm text-blue-600 block">Heavy-duty U-lock - maximum protection</span>
+                              <div className="text-xs text-blue-700 mt-1 space-y-0.5">
+                                <p>• Hardened steel construction</p>
+                                <p>• Maximum theft deterrent</p>
+                                <p>• Professional-grade security</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-lg font-bold text-blue-600">$30</span>
+                              <span className="text-xs text-blue-600 block">one-time</span>
+                            </div>
+                          </div>
+                        </Label>
+                      </div>
+                    </div>
+                  </RadioGroup>
+                  
+                  <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <p className="text-xs text-amber-800 font-medium">
+                      💡 Important: You're responsible for theft/loss ($400 replacement fee). A good lock is highly recommended!
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -455,12 +493,14 @@ export default function PremiumCheckoutPage() {
                       <span>${formatCurrency(insurancePrice)}/mo</span>
                     </div>
                   )}
-                    {formData.includeLock && (
-                      <div className="flex justify-between text-sm">
-                        <span>Security Lock (one-time)</span>
-                        <span>${formatCurrency(lockPrice)}</span>
-                      </div>
-                    )}
+                  {formData.lockType !== 'none' && (
+                    <div className="flex justify-between text-sm">
+                      <span>
+                        {formData.lockType === 'cable' ? 'Cable Lock' : 'U-Lock Security'} (one-time)
+                      </span>
+                      <span>${formatCurrency(lockPrice)}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="border-t pt-4">
