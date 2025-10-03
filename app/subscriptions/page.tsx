@@ -22,6 +22,7 @@ export default function SubscriptionsPage() {
   const router = useRouter()
   const [subscriptions, setSubscriptions] = useState<SubscriptionWithScooter[]>([])
   const [loadingSubscriptions, setLoadingSubscriptions] = useState(true)
+  const [cancellingId, setCancellingId] = useState<string | null>(null)
   const supabase = createClient()
 
   useEffect(() => {
@@ -72,24 +73,39 @@ export default function SubscriptionsPage() {
   }
 
   const handleCancelSubscription = async (subscriptionId: string) => {
-    if (!confirm('Are you sure you want to cancel this subscription?')) return
+    if (!confirm('Are you sure you want to cancel this subscription? This action cannot be undone and you will not receive a refund for the current billing period.')) return
+
+    setCancellingId(subscriptionId)
 
     try {
-      // In a real app, call your backend to cancel the Stripe subscription
-      const { error } = await supabase
-        .from('subscriptions')
-        .update({ status: 'cancelled' })
-        .eq('id', subscriptionId)
+      // Call our API to cancel the Stripe subscription
+      const response = await fetch('/api/stripe/cancel-subscription', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          subscriptionId: subscriptionId
+        }),
+      })
 
-      if (error) throw error
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to cancel subscription')
+      }
 
       // Update local state
       setSubscriptions(subscriptions.map(sub => 
         sub.id === subscriptionId ? { ...sub, status: 'cancelled' } : sub
       ))
-    } catch (error) {
+
+      alert('Subscription cancelled successfully. You will not be charged for future billing periods.')
+    } catch (error: any) {
       console.error('Error cancelling subscription:', error)
-      alert('Failed to cancel subscription. Please try again.')
+      alert(`Failed to cancel subscription: ${error.message}. Please contact support if this issue persists.`)
+    } finally {
+      setCancellingId(null)
     }
   }
 
@@ -196,8 +212,17 @@ export default function SubscriptionsPage() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleCancelSubscription(subscription.id)}
+                          disabled={cancellingId === subscription.id}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
                         >
-                          Cancel Lease
+                          {cancellingId === subscription.id ? (
+                            <>
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600 mr-2"></div>
+                              Cancelling...
+                            </>
+                          ) : (
+                            'Cancel Lease'
+                          )}
                         </Button>
                       </CardFooter>
                     </Card>
