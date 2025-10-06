@@ -14,12 +14,18 @@ function CheckoutSuccessContent() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
   const [verifying, setVerifying] = useState(true)
+  const [authError, setAuthError] = useState(false)
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/auth/login')
+      // Give a bit more time for auth to load after payment redirect
+      const authTimer = setTimeout(() => {
+        setAuthError(true)
+      }, 3000)
+      
+      return () => clearTimeout(authTimer)
     }
-  }, [user, loading, router])
+  }, [user, loading])
 
   useEffect(() => {
     // In a real app, verify the session with your backend
@@ -40,7 +46,34 @@ function CheckoutSuccessContent() {
     )
   }
 
-  if (!user) return null
+  // Handle authentication error with helpful message
+  if (authError || (!loading && !user)) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <Card className="max-w-md w-full">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <CheckCircle className="w-8 h-8 text-green-600" />
+            </div>
+            <CardTitle className="text-2xl">Payment Successful!</CardTitle>
+            <CardDescription>
+              Your payment has been processed successfully
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="text-center text-sm text-gray-600">
+              <p>Please sign in to view your order details and manage your subscription.</p>
+            </div>
+            <Link href="/auth/login" className="block">
+              <Button className="w-full">
+                Sign In to Continue
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -84,7 +117,7 @@ function CheckoutSuccessContent() {
 
           <div className="text-center text-sm text-gray-600">
             <p>Order confirmation has been sent to</p>
-            <p className="font-medium">{user.email}</p>
+            <p className="font-medium">{user?.email || 'your email address'}</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
