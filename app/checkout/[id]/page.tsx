@@ -33,7 +33,7 @@ export default function CheckoutPage() {
     semester: 'Fall Semester',
     deliveryAddress: '',
     contactNumber: '',
-    deliveryDate: format(addDays(new Date(), 3), 'yyyy-MM-dd'),
+    deliveryDate: 'today', // 'asap', 'today', or actual date
     deliveryTime: 'morning',
     includeInsurance: false,
   })
@@ -220,20 +220,79 @@ export default function CheckoutPage() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-4">
                     <div>
-                      <Label htmlFor="date">
+                      <Label htmlFor="delivery-options">
                         <Calendar className="w-4 h-4 inline mr-1" />
                         Delivery Date
                       </Label>
-                      <Input
-                        id="date"
-                        type="date"
+                      <RadioGroup
                         value={formData.deliveryDate}
-                        min={format(addDays(new Date(), 3), 'yyyy-MM-dd')}
-                        onChange={(e) => setFormData({ ...formData, deliveryDate: e.target.value })}
-                        required
-                      />
+                        onValueChange={(value) => setFormData({ ...formData, deliveryDate: value })}
+                        className="mt-2"
+                      >
+                        <div className="space-y-3">
+                          {/* ASAP Option */}
+                          <div className="flex items-center space-x-3 p-3 border-2 rounded-lg hover:bg-blue-50 border-blue-300 bg-blue-25">
+                            <RadioGroupItem value="asap" id="asap" />
+                            <Label htmlFor="asap" className="flex-1 cursor-pointer">
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <span className="font-medium text-blue-800">ASAP Delivery</span>
+                                  <span className="text-sm text-blue-600 block">Within 2-4 hours (subject to availability)</span>
+                                </div>
+                                <span className="text-xs px-2 py-1 rounded bg-blue-500 text-white font-medium">FASTEST</span>
+                              </div>
+                            </Label>
+                          </div>
+
+                          {/* Today Option */}
+                          <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-green-50 border-green-200">
+                            <RadioGroupItem value="today" id="today" />
+                            <Label htmlFor="today" className="flex-1 cursor-pointer">
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <span className="font-medium text-green-800">Today</span>
+                                  <span className="text-sm text-green-600 block">Same day delivery by end of day</span>
+                                </div>
+                                <span className="text-sm font-medium text-green-600">Free</span>
+                              </div>
+                            </Label>
+                          </div>
+
+                          {/* Future Date Option */}
+                          <div className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50">
+                            <RadioGroupItem value="future" id="future" />
+                            <Label htmlFor="future" className="flex-1 cursor-pointer">
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <span className="font-medium">Schedule for Later</span>
+                                  <span className="text-sm text-gray-500 block">Choose a specific date</span>
+                                </div>
+                                <span className="text-sm font-medium text-gray-600">Free</span>
+                              </div>
+                            </Label>
+                          </div>
+                        </div>
+                      </RadioGroup>
+
+                      {/* Date picker for future delivery */}
+                      {formData.deliveryDate === 'future' && (
+                        <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+                          <Label htmlFor="specific-date" className="text-sm font-medium">
+                            Select Date
+                          </Label>
+                          <Input
+                            id="specific-date"
+                            type="date"
+                            value={format(addDays(new Date(), 1), 'yyyy-MM-dd')}
+                            min={format(new Date(), 'yyyy-MM-dd')}
+                            onChange={(e) => setFormData({ ...formData, deliveryDate: e.target.value })}
+                            className="mt-1"
+                            required
+                          />
+                        </div>
+                      )}
                     </div>
 
                     <div>
@@ -244,12 +303,18 @@ export default function CheckoutPage() {
                       >
                         <div className="flex items-center space-x-2 mt-2">
                           <RadioGroupItem value="morning" id="morning" />
-                          <Label htmlFor="morning" className="text-sm">Morning</Label>
+                          <Label htmlFor="morning" className="text-sm">Morning (9 AM - 12 PM)</Label>
                         </div>
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="afternoon" id="afternoon" />
-                          <Label htmlFor="afternoon" className="text-sm">Afternoon</Label>
+                          <Label htmlFor="afternoon" className="text-sm">Afternoon (12 PM - 6 PM)</Label>
                         </div>
+                        {(formData.deliveryDate === 'asap' || formData.deliveryDate === 'today') && (
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="asap" id="asap-time" />
+                            <Label htmlFor="asap-time" className="text-sm">ASAP (Any time available)</Label>
+                          </div>
+                        )}
                       </RadioGroup>
                     </div>
                   </div>
